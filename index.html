@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="et">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Parim Apteek – leia ja võrdle tervisetooteid.">
+  <meta name="author" content="Triine Jõudna ja Marten Maalt">
+  <title>Avaleht | Parim Apteek</title>
+  <!-- Bootstrap ja seejärel meie kujundus, nagu tunnis kasutatud näites. -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="custom.css">
+  <script src="skript.js" defer></script>
+</head>
+<body>
+  <a class="vahele" href="#sisu">Liigu põhisisu juurde</a>
+  <header>
+    <nav class="navbar navbar-expand-xl py-3" aria-label="Põhimenüü">
+      <div class="container">
+        <a class="navbar-brand" href="#avaleht"><span class="logo-mark" aria-hidden="true">✚</span> Parim Apteek</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#peamenyy"
+          aria-controls="peamenyy" aria-expanded="false" aria-label="Ava või sulge menüü"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="peamenyy">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item"><a class="nav-link active" href="#avaleht" aria-current="page">Avaleht</a></li>
+            <li class="nav-item"><a class="nav-link" href="#tooted">Tooted</a></li>
+            <li class="nav-item"><a class="nav-link" href="#vordlus">Võrdlus (<span class="vordluse-arv">0</span>)</a></li>
+            <li class="nav-item"><a class="nav-link" href="#abi">Abi ja KKK</a></li>
+            <li class="nav-item"><a class="nav-link" href="#apteegid">Apteegid</a></li>
+          </ul>
+          <form id="pais-otsinguvorm" class="d-flex pais-otsing me-xl-3 my-3 my-xl-0" action="#tooted" role="search">
+            <label class="visually-hidden" for="pais-otsing">Otsi toodet</label>
+            <input id="pais-otsing" class="form-control me-2" type="search" name="otsing" placeholder="Otsi toodet" maxlength="100">
+            <button class="btn btn-outline-primary" type="submit">Otsi</button>
+          </form>
+          <a class="btn btn-primary" href="#ostukorv">Ostukorv (<span class="korvi-arv">0</span>)</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container mt-3">
+    <p id="teade" class="olekuteade" role="status" aria-live="polite"></p>
+    <aside id="lisamise-teade" class="alert ostuteade" hidden aria-label="Toode lisatud ostukorvi">
+      <p id="lisamise-tekst" role="status"></p>
+      <div class="d-flex flex-wrap gap-3 align-items-center"><a href="#tooted">Jätka ostlemist</a><a class="btn btn-primary" href="#ostukorv">Vaata ostukorvi</a></div>
+    </aside>
+  </div>
+
+  <main id="sisu" class="container py-4" tabindex="-1">
+<section id="avaleht" class="vaade">
+    <section class="avalehe-sissejuhatus text-center py-4 py-md-5">
+      <p class="ylesilt">Sinu valik, sinu tempos</p>
+      <h1 tabindex="-1">Leia kiiresti sobiv tervisetoode</h1>
+      <p class="text-secondary">Tutvu toodetega, võrdle omadusi ja leia endale sobiv toode.</p>
+      <form id="avalehe-otsinguvorm" class="d-flex suur-otsing mx-auto mt-4 gap-2" action="#tooted" role="search">
+        <label class="visually-hidden" for="avalehe-otsing">Toote nimi või märksõna</label>
+        <input id="avalehe-otsing" class="form-control" type="search" name="otsing" placeholder="Näiteks D-vitamiin" maxlength="100">
+        <button class="btn btn-primary" type="submit">Otsi tooteid</button>
+      </form>
+    </section>
+    <section class="my-4" aria-labelledby="kategooriate-pealkiri">
+      <h2 id="kategooriate-pealkiri">Kategooriad</h2>
+      <div class="kategooriad">
+        <a class="kategooria" href="#tooted" data-kategooria="Vitamiinid">✦ Vitamiinid <span aria-hidden="true">→</span></a>
+        <a class="kategooria" href="#tooted" data-kategooria="Mineraalained">◇ Mineraalained <span aria-hidden="true">→</span></a>
+        <a class="kategooria" href="#tooted" data-kategooria="Valu ja palavik">✚ Valu ja palavik <span aria-hidden="true">→</span></a>
+        <a class="kategooria" href="#tooted" data-kategooria="Ninahooldus">○ Ninahooldus <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+    <section aria-labelledby="toodete-pealkiri">
+      <div class="jaotise-pais"><h2 id="toodete-pealkiri">Tutvu toodetega</h2><a href="#tooted">Vaata kõiki tooteid →</a></div>
+      <div id="avalehe-tooted" class="row g-4"></div>
+    </section>
+    <section class="abiriba mt-4"><div><h2>Vajad abi?</h2><p class="mb-0">Leia vastused korduma kippuvatele küsimustele.</p></div><a class="btn btn-outline-primary" href="#abi">Ava abi</a></section>
+</section>
+
+<section id="tooted" class="vaade" hidden>
+      <p class="ylesilt">Tootevalik</p><h1 tabindex="-1">Leia ja võrdle tooteid</h1>
+      <p>Vali toode, tutvu selle andmetega ja lisa sobivad tooted ostukorvi.</p>
+      <div class="row g-4 mt-1">
+        <aside class="col-lg-3" aria-label="Toodete filtrid">
+          <form id="filtrid" class="paneel">
+            <h2>Filtrid</h2>
+            <label class="form-label" for="filter-otsing">Otsing</label><input id="filter-otsing" class="form-control mb-3" type="search" maxlength="100">
+            <label class="form-label" for="filter-kategooria">Kategooria</label><select id="filter-kategooria" class="form-select mb-3"><option value="">Kõik kategooriad</option><option>Vitamiinid</option><option>Mineraalained</option><option>Valu ja palavik</option><option>Ninahooldus</option></select>
+            <label class="form-label" for="filter-hind">Hind</label><select id="filter-hind" class="form-select mb-3"><option value="">Kõik hinnad</option><option value="odav">Kuni 10 €</option><option value="keskmine">Üle 10 kuni 15 €</option><option value="kallis">Üle 15 €</option></select>
+            <label class="form-label" for="filter-tootja">Tootja</label><select id="filter-tootja" class="form-select mb-3"><option value="">Kõik tootjad</option><option>Tootja A</option><option>Tootja B</option><option>Tootja C</option></select>
+            <label class="form-label" for="filter-tugevus">Tugevus / sisaldus</label><select id="filter-tugevus" class="form-select mb-3"><option value="">Kõik tugevused</option><option>1000 IU</option><option>2000 IU</option><option>4000 IU</option><option>500 mg</option><option>250 mg</option><option>Märkimata</option></select>
+            <label class="form-label" for="filter-saadavus">Saadavus</label><select id="filter-saadavus" class="form-select mb-3"><option value="">Kõik tooted</option><option value="laos">Laos olemas</option><option value="otsas">Laost otsas</option></select>
+            <button class="btn btn-outline-primary w-100" type="reset">Tühjenda filtrid</button>
+          </form>
+        </aside>
+        <div class="col-lg-9">
+          <div class="jaotise-pais mb-3"><p id="tulemuste-arv" class="mb-0" role="status"></p><div><label class="form-label" for="sorteerimine">Sorteeri</label><select id="sorteerimine" class="form-select"><option value="vaikimisi">Vaikimisi</option><option value="kasvav">Hind: odavam enne</option><option value="kahanev">Hind: kallim enne</option></select></div></div>
+          <div id="tooteloend" class="row g-4"></div>
+          <p id="tyhi-tulemus" class="paneel" hidden>Ükski toode ei vasta valitud tingimustele. Muuda otsingut või tühjenda filtrid.</p>
+          <p class="mt-4"><a href="#vordlus">Ava toodete võrdlus →</a></p>
+        </div>
+      </div>
+    </section>
+
+<section id="toode" class="vaade" hidden>
+      <p><a href="#tooted">← Tagasi toodete juurde</a></p>
+      <div id="toote-sisu"></div>
+    </section>
+
+<section id="vordlus" class="vaade" hidden>
+      <p class="ylesilt">Kõrvuti on selgem</p><h1 tabindex="-1">Toodete võrdlus</h1>
+      <p>Vali tootekaartidel kuni kolm toodet. Suurem vitamiinikogus ei tähenda automaatselt paremat valikut.</p>
+      <div id="vordluse-sisu"></div>
+      <a class="btn btn-outline-primary mt-4" href="#tooted">Jätka toodete valimist</a>
+    </section>
+
+<section id="ostukorv" class="vaade" hidden>
+      <p class="ylesilt">Sinu valikud</p><h1 tabindex="-1">Ostukorv</h1>
+      <p>Muuda koguseid, eemalda tooteid või jätka ostlemist.</p>
+      <div id="korvi-sisu" class="korv"></div>
+      <div id="korvi-jalus" class="korv-jalus mt-4" hidden>
+        <div class="d-flex flex-wrap gap-3 align-items-center"><a href="#tooted">Jätka ostlemist</a><button id="tyhjenda-korv" class="btn btn-outline-primary" type="button">Tühjenda ostukorv</button></div>
+        <div><p>Tooted kokku: <strong id="korvi-summa"></strong></p><p class="vaike">Tarnekulu lisandub tellimuse vormistamisel.</p><a class="btn btn-primary" href="#tellimine">Vormista tellimus</a></div>
+      </div>
+    </section>
+
+<section id="tellimine" class="vaade" hidden>
+      <p class="ylesilt">Tellimuse andmed</p><h1 tabindex="-1">Vormista tellimus</h1>
+      <div id="tyhi-korv" class="paneel" hidden><h2>Ostukorv on tühi</h2><p>Tellimuse vormistamiseks lisa kõigepealt tooteid.</p><a class="btn btn-primary" href="#tooted">Vaata tooteid</a></div>
+      <div id="tellimise-sisu" class="row g-4 mt-1" hidden>
+        <div class="col-lg-7">
+          <form id="tellimisvorm" class="paneel" autocomplete="off">
+            <fieldset class="mb-4"><legend>1. Tarneviis</legend>
+              <div class="form-check"><input id="tarne-automaat" class="form-check-input" type="radio" name="tarne" value="automaat" required><label class="form-check-label" for="tarne-automaat">Pakiautomaat · 2,90 €</label></div>
+              <div class="form-check"><input id="tarne-kuller" class="form-check-input" type="radio" name="tarne" value="kuller" required><label class="form-check-label" for="tarne-kuller">Kuller · 4,90 €</label></div>
+              <div id="automaadi-valik" class="mt-3" hidden><label class="form-label" for="automaat">Pakiautomaat *</label><select id="automaat" class="form-select" disabled><option value="">Vali pakiautomaat</option><option>Pakiautomaat A</option><option>Pakiautomaat B</option></select></div>
+            </fieldset>
+            <fieldset class="mb-4"><legend>2. Kontaktandmed</legend>
+              <div class="row g-3"><div class="col-md-6"><label class="form-label" for="eesnimi">Eesnimi *</label><input id="eesnimi" class="form-control" type="text" required maxlength="60"></div><div class="col-md-6"><label class="form-label" for="perenimi">Perekonnanimi *</label><input id="perenimi" class="form-control" type="text" required maxlength="60"></div></div>
+              <label class="form-label mt-3" for="epost">E-post *</label><input id="epost" class="form-control" type="email" required maxlength="100">
+              <label class="form-label mt-3" for="telefon">Telefon *</label><input id="telefon" class="form-control" type="tel" inputmode="numeric" required minlength="6" maxlength="20" pattern="[0-9]{6,20}" title="Sisesta vähemalt kuus numbrit ilma tühikute ja plussmärgita.">
+            </fieldset>
+            <fieldset id="aadressi-valjad" class="mb-4" hidden disabled><legend>3. Tarneaadress</legend>
+              <label class="form-label" for="aadress">Tänav, maja ja korter *</label><input id="aadress" class="form-control mb-3" type="text" maxlength="150">
+              <label class="form-label" for="linn">Linn või asula *</label><input id="linn" class="form-control mb-3" type="text" maxlength="80">
+              <label class="form-label" for="postiindeks">Postiindeks *</label><input id="postiindeks" class="form-control" type="text" inputmode="numeric" maxlength="5" pattern="[0-9]{5}" title="Viiekohaline postiindeks.">
+            </fieldset>
+            <fieldset class="mb-4"><legend>4. Makseviis</legend>
+              <label class="form-label" for="makse">Vali makseviis *</label><select id="makse" class="form-select" required><option value="">Vali makseviis</option><option value="pangalink">Pangalink</option><option value="arve">Arve</option></select>
+            </fieldset>
+            <div class="form-check mb-3"><input id="kinnitus" class="form-check-input" type="checkbox" required><label class="form-check-label" for="kinnitus">Olen tellimuse andmed üle kontrollinud. *</label></div>
+            <p id="vormi-viga" class="text-danger" role="alert"></p>
+            <p class="vaike">Tärniga (*) väljad on kohustuslikud.</p>
+            <button id="kinnita-tellimus" class="btn btn-primary" type="submit">Kinnita valikud</button>
+          </form>
+        </div>
+        <aside class="col-lg-5" aria-label="Tellimuse kokkuvõte"><div class="paneel"><h2>Tellimuse kokkuvõte</h2><div id="tellimuse-kokkuvote" aria-live="polite"></div><a class="d-inline-block mt-4" href="#ostukorv">← Muuda ostukorvi</a></div></aside>
+      </div>
+
+    </section>
+
+<section id="abi" class="vaade" hidden>
+      <p class="ylesilt">Oleme abiks</p><h1 tabindex="-1">Abi ja korduma kippuvad küsimused</h1>
+      <div class="row g-4 mt-1"><div class="col-lg-8">
+        <div class="accordion" id="kkk">
+          <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#kkk-1" aria-expanded="true" aria-controls="kkk-1">Kuidas saan lisada kaks erinevat toodet?</button></h2><div id="kkk-1" class="accordion-collapse collapse show" data-bs-parent="#kkk"><div class="accordion-body">Lisa esimene toode ostukorvi, vali „Jätka ostlemist“ ja lisa teine toode. Mõlemat toodet näed ostukorvis eraldi real.</div></div></div>
+          <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#kkk-2" aria-expanded="false" aria-controls="kkk-2">Kuidas muuta kogust või eemaldada toode?</button></h2><div id="kkk-2" class="accordion-collapse collapse" data-bs-parent="#kkk"><div class="accordion-body">Kasuta ostukorvis pluss- ja miinusnuppe või kirjuta soovitud kogus koguseväljale. Nupp „Eemalda“ kustutab toote. Ühe toote miinusnupp eemaldab viimase ühiku.</div></div></div>
+          <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#kkk-3" aria-expanded="false" aria-controls="kkk-3">Kus näen tarnekulu?</button></h2><div id="kkk-3" class="accordion-collapse collapse" data-bs-parent="#kkk"><div class="accordion-body">Tarnekulu lisandub kokkuvõttesse pärast tarneviisi valimist. Pakiautomaadi tarne on 2,90 € ja kulleriga tarne 4,90 €.</div></div></div>
+          <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#kkk-4" aria-expanded="false" aria-controls="kkk-4">Kuidas võrrelda tooteid?</button></h2><div id="kkk-4" class="accordion-collapse collapse" data-bs-parent="#kkk"><div class="accordion-body">Märgi tootekaartidel kuni kolm toodet ja ava menüüst „Võrdlus“. Tabel näitab pakendit, tugevust, tootjat, hinda ja saadavust.</div></div></div>
+        </div>
+      </div><aside class="col-lg-4"><div class="paneel"><h2>Toote valimine</h2><p>Toote sobivuse ja kasutamise küsimustes pöördu apteekri poole.</p><details><summary>Mida apteekrilt küsida?</summary><p class="mt-3 mb-0">Küsi, kas toode sobib sinu vajadustega ja teiste kasutatavate ravimitega ning mida tuleb selle kasutamisel arvestada.</p></details></div></aside></div>
+    </section>
+
+<section id="apteegid" class="vaade" hidden>
+      <p class="ylesilt">Asukohad</p><h1 tabindex="-1">Apteegid</h1>
+      <article class="paneel mt-4"><h2>Apteekide asukohad</h2><p>Apteekide asukohaandmed ei ole praegu saadaval.</p><a class="btn btn-outline-primary" href="#tooted">Vaata tooteid</a></article>
+    </section>
+
+<section id="kinnitusvaade" class="vaade" hidden>
+      <div id="tellimuse-kinnitus" class="paneel text-center py-5 mt-4"><h1 tabindex="-1">Sinu valikud on kinnitatud</h1><p>Kogusumma koos tarnega: <strong id="kinnitatud-summa"></strong></p><p>Ostukorv on tühjendatud.</p><a class="btn btn-primary" href="#avaleht">Tagasi avalehele</a></div>
+</section>
+  </main>
+
+  <footer class="mt-5 py-4">
+    <div class="container d-flex flex-wrap justify-content-between gap-3">
+      <div><strong>✚ Parim Apteek</strong><p class="mb-0 mt-1">Autorid: Triine Jõudna ja Marten Maalt</p></div>
+      <div class="d-flex flex-wrap align-items-start gap-3"><a href="#abi">Abi ja KKK</a><a href="#apteegid">Apteegid</a><span>© 2026 Parim Apteek</span></div>
+    </div>
+  </footer>
+  <!-- Bootstrapi JavaScript juhib avanevat menüüd ja akordioni. -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+  <noscript><p class="container">Ostukorvi, otsingu ja võrdluse kasutamiseks luba brauseris JavaScript.</p></noscript>
+</body>
+</html>
